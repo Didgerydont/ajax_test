@@ -14,6 +14,14 @@ function getData(type, cb) {
     };
 }
 
+function getTableHeaders(obj){
+    var tableHeaders = [];
+    
+    Object.keys(obj).forEach(function(key){
+        tableHeaders.push('<td>${key}</td>');
+    });
+}
+
 function printDataToConsole(data) {
     console.log(data);
 }
@@ -23,10 +31,12 @@ function writeToDocument(type) {
     el.innerHTML = "";
     getData(type, function(data) {
         data = data.results;
+        var tableHeaders =getTableHeaders(data[0]);
         
         data.forEach(function(item) {
-           el.innerHTML += "<p>" + item.name + "</p>"; 
+          // el.innerHTML += "<p>" + item.name + "</p>"; 
         });
         
+        el.innerHTML = '<table>${tableHeaders}</table>';
     });
 }
